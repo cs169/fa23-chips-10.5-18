@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given /the following representatives exist/ do |representatives_table|
   representatives_table.hashes.each do |representative|
     Representative.create!(name: representative['name'], title: representative['office'])
@@ -16,13 +18,13 @@ end
 
 Then /^I should see the representatives: (.*)$/ do |list|
   list.split('","').each do |representative|
-    step %{I should see "#{representative.strip}"}
+    step %(I should see "#{representative.strip}")
   end
 end
 
 Then /^I should see the offices: (.*)$/ do |list|
   list.split('","').each do |office|
-    step %{I should see "#{office.strip}"}
+    step %(I should see "#{office.strip}")
   end
 end
 
