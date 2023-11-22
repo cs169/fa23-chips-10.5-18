@@ -8,9 +8,10 @@ Given /^I am viewing the Oregon map$/ do
   visit '/state/OR'
 end
 
-When /^I click on (.*) County in the map$/ do |county_name|
-  county_path = find(:xpath, "//path[@data-county-name='#{county_name}']")
+When /^I click on (.*?) County in the map$/ do |county_name|
+  county_path = find(:xpath, "//path[@data-county-name='#{county_name} County']")
   county_path.click
+  # May want to verify the expected URL change
 end
 
 Then /^I should see the representatives: (.*)$/ do |list|
