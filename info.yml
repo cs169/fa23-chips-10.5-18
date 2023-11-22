@@ -1,0 +1,24 @@
+project:
+  name: 'CS169-fa23-18'
+  owner: 'fa23'
+  teamId: '18'
+  identities: {}
+  notifications:
+    email: 'madelenf143@berekeley.edu'
+  members:
+    member1:
+      name: 'Rachael'
+      surname: 'Han' 
+      githubUsername: 'rachaelhan28'
+    member2:
+      name: 'Madelen'
+      surname: 'Flores' 
+      githubUsername: 'madelen143'
+    member3:
+      name: 'Kambiz'
+      surname: 'Reza' 
+      githubUsername: 'KambizReza'
+    member4:
+      name: 'Michael'
+      surname: 'Jo' 
+      githubUsername: 'woohyun7878'
