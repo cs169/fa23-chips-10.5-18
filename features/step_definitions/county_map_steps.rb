@@ -13,26 +13,24 @@ Given /^I am viewing the Oregon map$/ do
 end
 
 When /^I click on (.* County) in the map$/ do |county_name|
-#   within('table#actionmap-state-counties-table') do
-#     county_row = find('tr', text: "#{county_name} County")
-#     county_row.find('a', text: 'View').click
-#   end
+  # within('table#actionmap-state-counties-table') do
+  # county_row = find('tr', text: "#{county_name} County")
+  # county_row.find('a', text: 'View').click
   state = State.find_by(name: 'Oregon')
   address = "#{county_name}, #{state}"
   visit search_representatives_path(address: address)
 end
 
-THen I should se
-
-
 Then /^I should see the representatives: (.*)$/ do |list|
-  list.split(',').each do |representative|
+  representatives = list.split('", "').map { |name| name.gsub(/(^"|"$)/, '') }
+  representatives.each do |representative|
     expect(page).to have_content(representative.strip)
   end
 end
 
 Then /^I should see the offices: (.*)$/ do |list|
-  list.split(',').each do |office|
+  offices = list.split('", "').map { |name| name.gsub(/(^"|"$)/, '') }
+  offices.each do |office|
     expect(page).to have_content(office.strip)
   end
 end
