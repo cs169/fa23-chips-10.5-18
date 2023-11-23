@@ -17,10 +17,13 @@ Background:
     | Bronson D. James| OR State Supreme Court Justice      |
     | Roger J. DeHoog | OR State Supreme Court Justice      |
     | Steve Dennison  | Deschutes County Clerk              |
+    | Shirley N. Weber| CA Secretary of State               |
+    | Fiona Ma        |  	CA State Treasurer                |
 
 Scenario: Clicking on Deschutes County in Oregon Displays Correct Representatives
   Given I am viewing the Oregon map
   When I click on Deschutes County in the map
   Then I should see the representatives: "Jeff Merkley", "Ron Wyden", "Tina Kotek", "Ellen F. Rosenblum", "Tobias Read", "LaVonne Griffin-Valade", "Bronson D. James", "Roger J. DeHoog", "Steve Dennison"
   And I should see the offices: "U.S. Senator", "U.S. Senator", "Governor of Oregon", "OR State Attorney General", "OR State Treasurer", "OR Secretary of State", "OR State Supreme Court Justice", "OR State Supreme Court Justice", "Deschutes County Clerk"
+  And I should not see the representatives: "Shirley N. Weber", "Fiona Ma "
   And the list should contain a total of 24 representatives

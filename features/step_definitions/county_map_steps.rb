@@ -28,6 +28,13 @@ Then /^I should see the representatives: (.*)$/ do |list|
   end
 end
 
+Then /^I should not see the representatives: (.*)$/ do |list|
+  representatives = list.split('", "').map { |name| name.gsub(/(^"|"$)/, '') }
+  representatives.each do |representative|
+    expect(page).not_to have_content(representative.strip)
+  end
+end
+
 Then /^I should see the offices: (.*)$/ do |list|
   offices = list.split('", "').map { |name| name.gsub(/(^"|"$)/, '') }
   offices.each do |office|
