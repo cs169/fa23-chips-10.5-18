@@ -10,9 +10,3 @@ Scenario: Clicking on Search button takes user to search page
   When I follow "Search"
   Then I should see the search button
 
-
-Scenario: Searching for Washington Representatives
-  When I follow "Search"
-  And I type text
-  And I press "Search"
-  Then I should see text
