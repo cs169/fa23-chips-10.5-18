@@ -67,3 +67,21 @@ Then /^I should see the state text$/ do
   expect(page).to have_text("California")
   # find(:button, name: 'Counties in Oregon')
 end 
+
+# Events page
+
+Given /^I am on the events page$/ do
+  visit '/events'
+end
+
+Then /^I should see the new events page$/ do 
+  expect(page).to have_content("New event")
+end 
+
+Then /^I should see the sign in page$/ do 
+  expect(page).to have_content("Sign In")
+end
+
+When /^I navigate to the events page$/ do 
+  visit '/events'
+end 
