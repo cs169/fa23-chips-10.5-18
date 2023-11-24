@@ -3,9 +3,25 @@ Given /^I am on the home page$/ do
   visit '/'
 end
 
+Given /^I am on the login page$/ do
+  visit '/login'
+end
+
+Given /^I am on the logout page$/ do
+  visit '/logout'
+end
+
 Then /^I should see the search button$/ do 
   expect(page).to have_content("Search for a Representative")
 end  
+
+Then /^I should see the home page$/ do 
+  expect(page).to have_content("National Map")
+end
+
+Then /^I should see the text "([^"]*)"$/ do |text|
+  expect(page).to have_content(text)
+end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
