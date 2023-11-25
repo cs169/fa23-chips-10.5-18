@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-Given('a representative exists') do
+Given /a representative exists/  do
   @representative = Representative.create!({
-                                             name:     'John Smith',
-                                             title:    'Senator',
-                                             ocdid:    'test',
-                                             street:   '2 1st street',
-                                             city:     'Berkeley',
-                                             state:    'California',
+                                             name:     'Joe Biden',
+                                             title:    'President of the United States',
+                                             ocdid:    '445',
+                                             street:   '1600 Pennsylvania Avenue Northwest',
+                                             city:     'Washington',
+                                             state:    'DC',
                                              party:    'Democratic party',
-                                             photoUrl: 'test'
+                                             photoUrl: nil
                                            })
 end
 
-When("I visit the representative's profile page") do
+When /I visit the representative's profile page/ do
   visit representative_path(@representative)
 end
 
-Then("I should see the representative's details") do
+Then /I should see the representative's details/ do
   expect(page).to have_text(@representative.name)
   expect(page).to have_text(@representative.street)
   expect(page).to have_text(@representative.city)
