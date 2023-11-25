@@ -4,8 +4,8 @@ class Representative < ApplicationRecord
   has_many :news_items, dependent: :delete_all
 
   def self.civic_api_to_representative_params(rep_info)
-     reps = []
-     rep_info.officials.each_with_index.map do |official, index|
+    reps = []
+    rep_info.officials.each_with_index.map do |official, index|
       office_data = extract_office_data(rep_info, index)
       address_data = format_address(official.address&.first)
       rep = office_data.merge(address_data).merge({
@@ -13,14 +13,13 @@ class Representative < ApplicationRecord
                                                     party:    official.party,
                                                     photoUrl: official.photo_url
                                                   })
-      
-      rep = Representative.find_by(name: official.name)
-      if rep.nil?
-        Representative.create!(rep)
-        
-        
+      table_rep = Representative.find_by(name: official.name)
+      if table_rep.nil?
+        new_rep = Representative.create!(rep)
+        reps.push(new_rep)
+      else
+        reps.push(table_rep)
       end
-      reps.push(rep)
     end
     reps
   end
