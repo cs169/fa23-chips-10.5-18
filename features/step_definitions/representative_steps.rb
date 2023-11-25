@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Given /a representative exists/  do
+Given /a representative exists/ do
   @representative = Representative.create!({
                                              name:     'Joe Biden',
                                              title:    'President of the United States',
