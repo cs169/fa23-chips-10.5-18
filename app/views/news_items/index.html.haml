@@ -1,6 +1,8 @@
 .container-fluid.py-5
     .row
         .col-md-8.offset-md-2
+            %h1.text-center
+                = link_to @representative.name, representative_path(@representative), class: 'text-decoration-none'
             %h1.text-center Listing News Articles for #{@representative.name}
             .clearfix.my-4
                 .float-right
