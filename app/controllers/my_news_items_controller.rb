@@ -4,11 +4,17 @@ class MyNewsItemsController < SessionController
   before_action :set_representative
   before_action :set_representatives_list
   before_action :set_issues_list
+  before_action :set_issue
   before_action :set_news_item, only: %i[edit update destroy]
 
   def new
     @news_item = NewsItem.new
   end
+
+  def new_cont 
+    @issue
+    @representative
+  end  
 
   def edit; end
 
@@ -55,6 +61,11 @@ class MyNewsItemsController < SessionController
     "Climate Change", "Homelessness", "Racism", "Tax Reform", "Net
     Neutrality", "Religious Freedom", "Border Security", "Minimum Wage",
     "Equal Pay"]
+  end
+
+
+  def set_issue
+    @issue = params[:issue]
   end
 
   def set_news_item
