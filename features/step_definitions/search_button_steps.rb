@@ -75,10 +75,6 @@ Then /^I should see the counties: (.*)$/ do |list|
   end
 end
 
-Then /^I should see the state text$/ do
-  expect(page).to have_text('California')
-end
-
 # Events page
 
 Given /^I am on the events page$/ do
