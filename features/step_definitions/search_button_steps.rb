@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-# search reps
-
+# map
+And /^I click on California state$/ do
+  visit state_map_path('CA')
+end
 # end
 
 # Issue Tests
