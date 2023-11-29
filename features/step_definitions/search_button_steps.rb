@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+# Issue Tests
+Given /^I am viewing the articles for Gavin Newsom$/ do
+  @representative = Representative.create!({
+                                             name:     'Joe Biden',
+                                             title:    'President of the United States',
+                                             ocdid:    '445',
+                                             street:   '1600 Pennsylvania Avenue Northwest',
+                                             city:     'Washington',
+                                             state:    'DC',
+                                             party:    'Democratic party',
+                                             photoUrl: nil
+                                           })
+  visit '/representatives/1/news_items'
+end
+
 Given /^I am on the home page$/ do
   visit '/'
 end
