@@ -1,19 +1,30 @@
 # frozen_string_literal: true
 
+# search reps
+
+# end
+
 # Issue Tests
 Given /^I am viewing the articles for Gavin Newsom$/ do
   @representative = Representative.create!({
-                                             name:     'Joe Biden',
-                                             title:    'President of the United States',
-                                             ocdid:    '445',
-                                             street:   '1600 Pennsylvania Avenue Northwest',
-                                             city:     'Washington',
-                                             state:    'DC',
+                                             name:     'Gavin Newsom',
+                                             title:    'Govenor of California',
+                                             ocdid:    '',
+                                             street:   '',
+                                             city:     '',
+                                             state:    'CA',
                                              party:    'Democratic party',
                                              photoUrl: nil
                                            })
   visit '/representatives/1/news_items'
 end
+
+Given /^I am logged in$/ do
+  visit '/login'
+  click_button('Sign in with Google')
+end
+
+# end Issues tests
 
 Given /^I am on the home page$/ do
   visit '/'
@@ -47,12 +58,8 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
-And /^I type text$/ do
-  fill_in('address', with: 'Washington')
-end
-
-Then /^I should see text$/ do
-  expect(page).to have_content('Governor of Washington')
+And /^I type text "([^"]*)"$/ do |text|
+  fill_in('address', with: text)
 end
 
 And /^the list should contain a total of (\d+) counties$/ do |expected_total|
