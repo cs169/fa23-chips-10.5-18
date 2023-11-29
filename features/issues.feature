@@ -1,7 +1,7 @@
 Feature: Seeing the Issue Column on Articles
   As a user,
   I want to have an 'Issues' column on artciles 
-  so I can easily tell what the artcile is about.
+  so I can tell what the artcile is about.
 
 Background:
   Given I am logged in
