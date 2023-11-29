@@ -1,4 +1,4 @@
-Feature: Seeing the news articles 
+Feature: Seeing the news article 
   As a user,
   I want to be able to see my events 
   so I can easily view the location/date/description.
