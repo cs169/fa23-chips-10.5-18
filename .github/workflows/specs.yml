@@ -14,12 +14,14 @@ jobs:
           - ubuntu-22.04
     steps:
       - name: Cache multiple paths
+        env: 
+          SUPER_SECRET: ${{ RAILS_MASTER_KEY }}
         uses: actions/cache@v2
         with:
           path: |-
             node_modules
             vendor/bundle
-          key: '${{ runner.os }}-${{ hashFiles(''RAILS_MASTER_KEY'') }}'
+          key: '${{ runner.os }}-${{ hashFiles(''TODO'') }}'
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:
