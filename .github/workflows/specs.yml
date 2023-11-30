@@ -15,9 +15,6 @@ jobs:
     env: 
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}      
     steps:
-      - shell: bash 
-        run: |
-          touch master.key && echo "$RAILS_MASTER_KEY" > master.key
       - name: Cache multiple paths
         uses: actions/cache@v2
         with:
@@ -38,5 +35,7 @@ jobs:
       - run: yarn install
       - run: bundle exec rake db:setup
       - run: bundle exec rake db:test:prepare
+      - run: bundle exec rake db:migrate
+      - run: bundle exec rake db:seed
       - run: bundle exec rspec
       - run: bundle exec cucumber
