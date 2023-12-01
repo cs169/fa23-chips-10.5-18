@@ -7,3 +7,4 @@ Scenario: Clicking on a state
   Given I am on the home page
   And I click on California state
   Then I should see the text "California"
+
