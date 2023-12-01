@@ -12,6 +12,8 @@ jobs:
       matrix:
         os:
           - ubuntu-22.04
+    env: 
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}      
     steps:
       - name: Cache multiple paths
         uses: actions/cache@v2
@@ -19,7 +21,7 @@ jobs:
           path: |-
             node_modules
             vendor/bundle
-          key: '${{ runner.os }}-${{ hashFiles(''RAILS_MASTER_KEY'') }}'
+          key: '${{ runner.os }}-${{ hashFiles(''TODO'') }}'
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:

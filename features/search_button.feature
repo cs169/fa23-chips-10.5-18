@@ -6,7 +6,8 @@ Feature: Use search button from home page
 Background: 
  Given I am on the home page
 
-Scenario: Clicking on Search button takes user to search page
+Scenario: Using search button gives list of representatives
   When I follow "Search"
-  Then I should see the search button
-
+  And I type text "Seattle"
+  And I press "Search"
+  Then I should see the text "Governor of Washington"
