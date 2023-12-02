@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'news-api'
+
 class MyNewsItemsController < SessionController
   before_action :set_representative
   before_action :set_representatives_list
@@ -9,6 +11,8 @@ class MyNewsItemsController < SessionController
 
   def new
     @news_item = NewsItem.new
+    @form_url = representative_my_news_item_fetch_articles_path(params[:representative_id])
+    @form_method = :get
   end
 
   def edit; end
@@ -36,6 +40,26 @@ class MyNewsItemsController < SessionController
     @news_item.destroy
     redirect_to representative_news_items_path(@representative),
                 notice: 'News was successfully destroyed.'
+  end
+
+  def fetch_articles
+    Rails.logger.debug { "About to make News API call for issue: #{params[:issue]}" }
+
+    newsapi = News.new(Rails.application.credentials[:GOOGLE_NEWS_API_KEY])
+    result = newsapi.get_everything(q: params[:issue], language: 'en', sortBy: 'popularity', pageSize: 5)
+    Rails.logger.debug { "News API response: #{result.inspect}" }
+    if result.any?
+      @articles = result
+      Rails.logger.debug { "Articles variable set. Articles: #{@articles}" }
+      render 'my_news_items/fetch_articles'
+    else
+      Rails.logger.debug { "No articles found for issue: #{params[:issue]}" }
+      redirect_to new_representative_my_news_item_path(@representative), alert: 'No articles found for this issue.'
+    end
+  rescue StandardError => e
+    Rails.logger.error "Exception occurred: #{e.message}"
+    redirect_to representative_new_my_news_item_path(@representative),
+                alert: 'An error occurred while fetching articles.'
   end
 
   private
