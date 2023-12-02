@@ -1,14 +1,19 @@
 = form_for NewsItem.new, url: representative_my_news_item_fetch_articles_path(params[:representative_id]), method: :post do |f|
   - if @articles.present?
-    - @articles.each do |article|
+    - @articles.each do |article, index|
       .article
         %ul
           %li= article.title
           %li
             %a{ href: article.url, target: "_blank" }= article.url
           %li= article.description
-        = f.radio_button :selected_article_url, article.url
-        = f.label :selected_article_url, "Select this article"
+        = f.radio_button :link, article.url, id: "article_#{index}_link"
+        = f.label :link, "Select this article", for: "article_#{index}_link"
+        = f.hidden_field :title, value: article.title, id: "article_#{index}_title"
+        = f.hidden_field :description, value: article.description, id: "article_#{index}_description"
+    .rating
+      = f.label :rating, 'Rating'
+      = f.select :rating, options_for_select(1..5), include_blank: true
   - else
     %p No articles found
-  = f.submit "Save"
+  = f.submit "Save", class: 'btn btn-primary'

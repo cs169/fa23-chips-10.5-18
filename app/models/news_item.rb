@@ -4,7 +4,7 @@ class NewsItem < ApplicationRecord
   belongs_to :representative
   has_many :ratings, dependent: :delete_all
 
-  attr_accessor :selected_article_url
+  validates :title, :link, :description, presence: true
 
   def self.find_for(representative_id)
     NewsItem.find_by(

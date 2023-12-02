@@ -40,6 +40,7 @@ Rails.application.routes.draw do
                                                                       via: [:delete]
         get 'my_news_item/fetch_articles', to: 'my_news_items#fetch_articles'
 
+	post 'my_news_item/fetch_articles', to: 'my_news_items#create'
     end
     get '/search/(:address)' => 'search#search', :as => 'search_representatives'
 end
