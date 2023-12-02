@@ -6,8 +6,6 @@
     - @articles.each do |article, index|
       .article
         %ul
-          = f.radio_button :selected_article_url, article.url
-          = f.label :selected_article_url, "Select this article"
           %li= article.title
           %li
             %a{ href: article.url, target: "_blank" }= article.url
