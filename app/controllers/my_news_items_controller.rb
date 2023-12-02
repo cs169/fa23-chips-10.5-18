@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'news-api'
 
 class MyNewsItemsController < SessionController
   before_action :set_representative
@@ -9,6 +10,8 @@ class MyNewsItemsController < SessionController
 
   def new
     @news_item = NewsItem.new
+    @form_url = fetch_articles_representative_my_news_items_path(params[:representative_id])
+    @form_method = :get
   end
 
   def edit; end
@@ -72,4 +75,22 @@ class MyNewsItemsController < SessionController
   def news_item_params
     params.require(:news_item).permit(:news, :title, :description, :link, :representative_id, :issue)
   end
+
+  def fetch_articles
+    newsapi = News.new(Rails.application.credentials[:GOOGLE_NEWS_API_KEY])
+    result = newsapi.get_everything(q: params[:issue], language: 'en', sortBy: 'relevance', pageSize: 5)
+  
+    Rails.logger.debug "News API call executed. Result: #{result.inspect}"
+  
+    @articles = result.articles
+  
+    Rails.logger.debug "Articles variable set. Articles: #{@articles.inspect}"
+  
+    if @articles.blank?
+      Rails.logger.debug "No articles found for issue: #{params[:issue]}"
+      redirect_to new_representative_my_news_item_path(@representative), alert: 'No articles found for this issue.'
+    else
+      render 'my_news_items/fetch_articles'
+    end
+  end  
 end
