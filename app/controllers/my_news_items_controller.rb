@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'news-api'
 
 class MyNewsItemsController < SessionController
@@ -42,24 +43,23 @@ class MyNewsItemsController < SessionController
   end
 
   def fetch_articles
-    begin
-      Rails.logger.debug "About to make News API call for issue: #{params[:issue]}"
+    Rails.logger.debug { "About to make News API call for issue: #{params[:issue]}" }
 
-      newsapi = News.new(Rails.application.credentials[:GOOGLE_NEWS_API_KEY])
-      result = newsapi.get_everything(q: params[:issue], language: 'en', sortBy: 'popularity', pageSize: 5)
-      Rails.logger.debug "News API response: #{result.inspect}"
-      if result.any?
-	@articles = result
-        Rails.logger.debug "Articles variable set. Articles: #{@articles}"
-        render 'my_news_items/fetch_articles'
-      else
-        Rails.logger.debug "No articles found for issue: #{params[:issue]}"
-        redirect_to new_representative_my_news_item_path(@representative), alert: 'No articles found for this issue.'
-      end
-    rescue => e
-      Rails.logger.error "Exception occurred: #{e.message}"
-      redirect_to representative_new_my_news_item_path(@representative), alert: 'An error occurred while fetching articles.'
+    newsapi = News.new(Rails.application.credentials[:GOOGLE_NEWS_API_KEY])
+    result = newsapi.get_everything(q: params[:issue], language: 'en', sortBy: 'popularity', pageSize: 5)
+    Rails.logger.debug { "News API response: #{result.inspect}" }
+    if result.any?
+      @articles = result
+      Rails.logger.debug { "Articles variable set. Articles: #{@articles}" }
+      render 'my_news_items/fetch_articles'
+    else
+      Rails.logger.debug { "No articles found for issue: #{params[:issue]}" }
+      redirect_to new_representative_my_news_item_path(@representative), alert: 'No articles found for this issue.'
     end
+  rescue StandardError => e
+    Rails.logger.error "Exception occurred: #{e.message}"
+    redirect_to representative_new_my_news_item_path(@representative),
+                alert: 'An error occurred while fetching articles.'
   end
 
   private
