@@ -16,8 +16,15 @@ And /^I click on California state$/ do
 end
 
 Then /^I should see a table of counites$/ do
-  county_path('CA', '001')
   expect(page).to have_selector(:css, '#actionmap-state-counties-table')
+end
+
+And /^I navigate to a state that does not exist$/ do
+  visit state_map_path('CC')
+end
+
+And /^I navigate to a county that does not exist$/ do
+  visit county_path('CA', '000')
 end
 # end
 
