@@ -10,7 +10,7 @@ class MyNewsItemsController < SessionController
 
   def new
     @news_item = NewsItem.new
-    @form_url = fetch_articles_representative_my_news_items_path(params[:representative_id])
+    @form_url = representative_my_news_item_fetch_articles_path(params[:representative_id])
     @form_method = :get
   end
 
@@ -39,6 +39,27 @@ class MyNewsItemsController < SessionController
     @news_item.destroy
     redirect_to representative_news_items_path(@representative),
                 notice: 'News was successfully destroyed.'
+  end
+
+  def fetch_articles
+    begin
+      Rails.logger.debug "About to make News API call for issue: #{params[:issue]}"
+
+      newsapi = News.new(Rails.application.credentials[:GOOGLE_NEWS_API_KEY])
+      result = newsapi.get_everything(q: params[:issue], language: 'en', sortBy: 'popularity', pageSize: 5)
+      Rails.logger.debug "News API response: #{result.inspect}"
+      if result.any?
+	@articles = result
+        Rails.logger.debug "Articles variable set. Articles: #{@articles}"
+        render 'my_news_items/fetch_articles'
+      else
+        Rails.logger.debug "No articles found for issue: #{params[:issue]}"
+        redirect_to new_representative_my_news_item_path(@representative), alert: 'No articles found for this issue.'
+      end
+    rescue => e
+      Rails.logger.error "Exception occurred: #{e.message}"
+      redirect_to representative_new_my_news_item_path(@representative), alert: 'An error occurred while fetching articles.'
+    end
   end
 
   private
@@ -75,22 +96,4 @@ class MyNewsItemsController < SessionController
   def news_item_params
     params.require(:news_item).permit(:news, :title, :description, :link, :representative_id, :issue)
   end
-
-  def fetch_articles
-    newsapi = News.new(Rails.application.credentials[:GOOGLE_NEWS_API_KEY])
-    result = newsapi.get_everything(q: params[:issue], language: 'en', sortBy: 'relevance', pageSize: 5)
-  
-    Rails.logger.debug "News API call executed. Result: #{result.inspect}"
-  
-    @articles = result.articles
-  
-    Rails.logger.debug "Articles variable set. Articles: #{@articles.inspect}"
-  
-    if @articles.blank?
-      Rails.logger.debug "No articles found for issue: #{params[:issue]}"
-      redirect_to new_representative_my_news_item_path(@representative), alert: 'No articles found for this issue.'
-    else
-      render 'my_news_items/fetch_articles'
-    end
-  end  
 end

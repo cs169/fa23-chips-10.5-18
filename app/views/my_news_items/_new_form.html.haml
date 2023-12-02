@@ -1,4 +1,4 @@
-= form_for news_item, url: @form_url, html: { method: :get } do |f|
+= form_with model: news_item, url: @form_url, method: :get, local: true do |f|
     - if news_item.errors.any?
         .alert.alert-danger
             %h2
@@ -8,15 +8,15 @@
                     %li= message
     .form-group.row
         .col-sm-2
-            = label :news_item, :representative_id, class: 'col-form-label'
+            = label_tag  :representative_id, class: 'col-form-label'
         .col-sm-10
-            = select :news_item, :representative_id, representatives_list, { include_blank: true },
+            = select_tag :representative_id, options_for_select(representatives_list, selected: params[:representative_id]), include_blank: true,
             class: 'form-control'
     .form-group.row
         .col-sm-2
-            = label :news_item, :issue, 'Issue', class: 'col-form-label'
+            = label_tag :issue, 'Issue', class: 'col-form-label'
         .col-sm-10
-            = select :news_item, :issue, issues_list, { include_blank: true },
+            = select_tag :issue, options_for_select(issues_list, selected: params[:issue]), include_blank: true,
             class: 'form-control'
     .actions
         .col-sm-1.mx-auto
