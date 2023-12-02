@@ -8,10 +8,11 @@
                     %li= message
     .form-group.row
         .col-sm-2
-            = label_tag  :representative_id, class: 'col-form-label'
+            = label_tag  :representative_id, 'Representative',  class: 'col-form-label'
         .col-sm-10
             = select_tag :representative_id, options_for_select(representatives_list, selected: params[:representative_id]), include_blank: true,
             class: 'form-control'
+
     .form-group.row
         .col-sm-2
             = label_tag :issue, 'Issue', class: 'col-form-label'
