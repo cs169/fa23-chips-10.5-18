@@ -18,10 +18,10 @@ class MyNewsItemsController < SessionController
   def edit; end
 
   def create
-	  @representatve = Representative.find(params[:representative_id])
-	  @news_item = @representative.news_items.build(news_item_params)
-	  @news_item.title = params[:news_item][:title]
-	  @news_item.issue = params[:issue]
+    @representatve = Representative.find(params[:representative_id])
+    @news_item = @representative.news_items.build(news_item_params)
+    @news_item.title = params[:news_item][:title]
+    @news_item.issue = params[:issue]
 
     if @news_item.save
       redirect_to representative_news_item_path(@representative, @news_item),
@@ -98,6 +98,6 @@ class MyNewsItemsController < SessionController
 
   # Only allow a list of trusted parameters through.
   def news_item_params
-    params.require(:news_item).permit(:title, :description, :link,:representative_id, :issue, :rating)
+    params.require(:news_item).permit(:title, :description, :link, :representative_id, :issue, :rating)
   end
 end
