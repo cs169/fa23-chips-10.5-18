@@ -8,7 +8,6 @@ class MyNewsItemsController < SessionController
   before_action :set_issues_list
   before_action :set_issue
   before_action :set_news_item, only: %i[edit update destroy]
-
   def new
     @news_item = NewsItem.new
   end
@@ -94,6 +93,7 @@ class MyNewsItemsController < SessionController
 
   # Only allow a list of trusted parameters through.
   def news_item_params
-    params.require(:news_item).permit(:title, :description, :link, :representative_id, :issue, :rating)
+    params.require(:news_item).permit(:title, :description, :link, :issue, :representative_id, :rating)
+
   end
 end
