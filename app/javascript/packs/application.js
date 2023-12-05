@@ -35,10 +35,10 @@ $(document).on('turbolinks:load', () => {
     $('.actionmap-select2').select2({
         theme: 'bootstrap',
     });
-    $('input[type=radio][name="news_item[link]"]').change(function() {
-      var selectedTitle = $(this).data('title');
-      var selectedDescription = $(this).data('description');
-      $('#article_title').val(selectedTitle);
-      $('#article_description').val(selectedDescription);
+    $('input[type=radio][name="news_item[link]"]').change(function () {
+        const selectedTitle = $(this).data('title');
+        const selectedDescription = $(this).data('description');
+        $('#article_title').val(selectedTitle);
+        $('#article_description').val(selectedDescription);
     });
 });

@@ -1,4 +1,5 @@
-= form_for news_item, url: representative_my_news_item_fetch_articles_path(params[:representative_id]), html: { method: form_method } do |f|
+= form_for news_item, url: representative_my_news_item_fetch_articles_path(params[:representative_id]),
+html: { method: form_method } do |f|
     - if news_item.errors.any?
         .alert.alert-danger
             %h2
