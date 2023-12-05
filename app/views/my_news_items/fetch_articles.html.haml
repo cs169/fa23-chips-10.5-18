@@ -1,0 +1,20 @@
+= form_for NewsItem.new, url: representative_my_news_item_fetch_articles_path(params[:representative_id]), method: :post do |f|
+
+  - if @articles.present?
+    - @articles.each_with_index do |article, index|
+      .article
+        %ul
+          %li.article-title= article.title
+          %li
+            %a{ href: article.url, target: "_blank" }= article.url
+          %li.article-description= article.description
+          = f.radio_button :link, article.url, id: "article_#{index}_link", name: 'news_item[link]', class: 'article-radio', data: { title: article.title, description: article.description }
+          = f.label :link, "Select this article", for: "article_#{index}_link"
+    = f.hidden_field :title, id: 'article_title'
+    = f.hidden_field :description, id: 'article_description'
+    .rating
+      = f.label :rating, 'Rating'
+      = f.select :rating, options_for_select(1..5), include_blank: true
+  - else
+    %p No articles found
+  = f.submit "Save", class: 'btn btn-primary'
