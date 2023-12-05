@@ -24,7 +24,7 @@
       .rating
         .form-group.row.justify-content-center
           .col-sm-2.text-right
-            = f.label :rating, 'Rating'
+            = f.label 'Rating'
           .col-sm-2
             = f.select :rating, options_for_select(1..5), include_blank: true
     - else
