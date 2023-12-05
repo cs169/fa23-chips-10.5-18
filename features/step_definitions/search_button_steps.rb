@@ -116,3 +116,11 @@ end
 When /^I navigate to the events page$/ do
   visit '/events'
 end
+
+And /^I choose article_0_link$/ do
+  page.choose('article_0_link')
+end
+
+When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
+  select(value, from: field)
+end
