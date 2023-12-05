@@ -11,8 +11,6 @@ class MyNewsItemsController < SessionController
 
   def new
     @news_item = NewsItem.new
-    @form_url = representative_my_news_item_fetch_articles_path(params[:representative_id])
-    @form_method = :get
   end
 
   def edit; end
@@ -20,8 +18,6 @@ class MyNewsItemsController < SessionController
   def create
     @representatve = Representative.find(params[:representative_id])
     @news_item = @representative.news_items.build(news_item_params)
-    @news_item.title = params[:news_item][:title]
-    @news_item.issue = params[:issue]
 
     if @news_item.save
       redirect_to representative_news_item_path(@representative, @news_item),
@@ -48,7 +44,6 @@ class MyNewsItemsController < SessionController
 
   def fetch_articles
     # Rails.logger.debug { "About to make News API call for issue: #{params[:issue]}" }
-
     newsapi = News.new(Rails.application.credentials[:GOOGLE_NEWS_API_KEY])
     result = newsapi.get_everything(
       q:        "#{params[:issue]} AND #{@representative.name}",
