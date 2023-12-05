@@ -10,31 +10,31 @@ method: :post do |f|
             %h5 Select an article:
     .row.justify-content-center
         .col-sm-6
-        - if @articles.present?
-            - @articles.each_with_index do |article, index|
-                .article
-                    %ul
-                        = f.radio_button :link, article.url, id: "article_#{index}_link",
-                        name: 'news_item[link]', class: 'article-radio',
-                        data: { title: article.title, description: article.description }
-                        = f.label :link, article.title, for: "article_#{index}_link"
-                        %li
-                            %a{ href: article.url, target: '_blank' }= article.url
-                        %li.article-description= article.description
-            = f.hidden_field :title, id: 'article_title'
-            = f.hidden_field :description, id: 'article_description'
-            = f.hidden_field :issue, value: @issue
-            .rating
-                .form-group.row.justify-content-center
-                    .col-sm-2.text-right
-                        = f.label 'Rating'
-                    .col-sm-2
-                        = f.select :rating, options_for_select(1..5), include_blank: true
-        - else
-            %p No articles found
-        .row.justify-content-center
-            .col-sm-1.text-center
-                = f.submit 'Save', class: 'btn btn-primary btn-block'
+            - if @articles.present?
+                - @articles.each_with_index do |article, index|
+                    .article
+                        %ul
+                            = f.radio_button :link, article.url, id: "article_#{index}_link",
+                            name: 'news_item[link]', class: 'article-radio',
+                            data: { title: article.title, description: article.description }
+                            = f.label :link, article.title, for: "article_#{index}_link"
+                            %li
+                                %a{ href: article.url, target: '_blank' }= article.url
+                            %li.article-description= article.description
+                = f.hidden_field :title, id: 'article_title'
+                = f.hidden_field :description, id: 'article_description'
+                = f.hidden_field :issue, value: @issue
+                .rating
+                    .form-group.row.justify-content-center
+                        .col-sm-2.text-right
+                            = f.label 'Rating'
+                        .col-sm-2
+                            = f.select :rating, options_for_select(1..5), include_blank: true
+            - else
+                %p No articles found
+    .row.justify-content-center
+        .col-sm-1.text-center
+            = f.submit 'Save', class: 'btn btn-primary btn-block'
     .row.justify-content-center
         .col-sm-3.text-right
             = link_to 'View News Articles?', representative_news_items_path(@representative), class: 'mx-1 btn btn-info'
